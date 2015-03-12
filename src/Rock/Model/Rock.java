@@ -1,14 +1,13 @@
 package Rock.Model;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class Rock
 {
 
 	private String rockString;
 	private String enemyString;
-	
+
 	private int enemyAttack;
 
 	private int winCount;
@@ -17,162 +16,186 @@ public class Rock
 
 	public Rock()
 	{
-		rockString = "";
-		enemyAttack = 0;
-		winCount = 0;
-		loseCount = 0;
-		tieCount = 0;
-		
+
 	}
 
+	public Rock(String rockString, int enemyAttack, int winCount, int loseCount, int tieCount)
+	{
+		this.rockString = rockString;
+		this.enemyAttack = enemyAttack;
+		this.winCount = winCount;
+		this.loseCount = loseCount;
+		this.tieCount = tieCount;
 
-	public String rockString(String userText)
+	}
+
+	public Object[] rockChoice()
 	{
 		String playString = "";
-		if (userText != null && userText.length() > 0)
+		Object[] options = { "Rock", "Paper", "Scissors", "Quit" };
+		int choice = JOptionPane.showOptionDialog(null, "Rock, Paper, or Scissors?", "Choose", 
+				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[3]);
+
+		if (choice == 0)
 		{
-			if (userText.equalsIgnoreCase("rock"))
-			{
-				choseRock(playString);
-			}
-			else if (userText.equalsIgnoreCase("paper"))
-			{
-				chosePaper(playString);
-			}
-			
-			else if (userText.equalsIgnoreCase("scissors"))
-			{
-				choseScissors(playString);
-			}
-			
-			else
-			{
-				System.out.println("I know you understand english, this isn't that complex. "
-						+ "Your choices are, Rock, Paper, or Scissors!");
-			}
+			choseRock(playString);
 		}
-		return playString;
+		else if (choice == 1)
+		{
+			chosePaper(playString);
+		}
+
+		else if (choice == 2)
+		{
+			choseScissors(playString);
+		}
+		else if (choice == 3)
+		{
+			
+		}
+		return options;
 	}
-	
+
 	public String randomAttackString(String input)
 	{
 		String randomAttack = "";
-		int enemyAttack = (int) (Math.random()* 3);
-		
-		if(enemyAttack == 0)
+		int enemyAttack = (int) (Math.random() * 3);
+
+		if (enemyAttack == 0)
 		{
 			randomAttack = "Rock";
 		}
-		else if(enemyAttack == 1)
+		else if (enemyAttack == 1)
 		{
 			randomAttack = "Paper";
 		}
-		else if(enemyAttack == 2)
+		else if (enemyAttack == 2)
 		{
 			randomAttack = "Scissors";
 		}
 		return randomAttack;
 	}
-	
+
 	public String choseRock(String userText)
 	{
-		 String winLoseString= "";
-		 if(randomAttackString(winLoseString).equalsIgnoreCase("rock"))
-			{
-				System.out.println("Your nemesis chose rock, it is a tie.");
-				tieCount ++;
-				System.out.println("There have been " + getWinCount() + " wins!");
-				System.out.println("There have been " + getTieCount() + " ties.");
-				System.out.println("There have been " + getLoseCount() + " losses. :(");
-			}
-			
-			else if(randomAttackString(winLoseString).equalsIgnoreCase("paper"))
-			{
-				System.out.println("Your nemesis chose paper, you lost you sucker!.");
-				loseCount ++;
-				System.out.println("There have been " + getWinCount() + " wins!");
-				System.out.println("There have been " + getTieCount() + " ties.");
-				System.out.println("There have been " + getLoseCount() + " losses. :(");
-			}
-			else if(randomAttackString(winLoseString).equalsIgnoreCase("scissors"))
-			{
-				System.out.println("Your nemesis chose scissors, you flipping won! Heck yeah!");
-				winCount ++;
-				System.out.println("There have been " + getWinCount() + " wins!");
-				System.out.println("There have been " + getTieCount() + " ties.");
-				System.out.println("There have been " + getLoseCount() + " losses. :(");
-			}
-		
+		String winLoseString = "";
+		if (randomAttackString(winLoseString).equalsIgnoreCase("rock"))
+		{
+			JOptionPane.showMessageDialog(null, "Your nemesis chose rock, it is a tie.");
+			tieCount++;
+			JOptionPane.showMessageDialog(null, "There have been " + getWinCount() + " wins!" 
+			+ getTieCount() + " ties." 
+					+ " and " + getLoseCount() + " losses. :( ");
+			rockChoice();
+		}
+
+		else if (randomAttackString(winLoseString).equalsIgnoreCase("paper"))
+		{
+			JOptionPane.showMessageDialog(null, "Your nemesis chose paper, you lost you sucker!.");
+			loseCount++;
+			JOptionPane.showMessageDialog(null, "There have been " + getWinCount() + " wins!" 
+			+ getTieCount() + " ties." 
+			+ " and " + getLoseCount() + " and losses. :(");
+			rockChoice();
+		}
+		else if (randomAttackString(winLoseString).equalsIgnoreCase("scissors"))
+		{
+			JOptionPane.showMessageDialog(null, "Your nemesis chose scissors, you flipping won! Heck yeah!");
+			winCount++;
+			JOptionPane.showMessageDialog(null, "There have been " + getWinCount() + " wins!" 
+			+ getTieCount() + " ties." 
+			+ " and " + getLoseCount() + " and losses. :(");
+			rockChoice();
+		}
+
 		return winLoseString;
-		
+
 	}
-	
+
 	public String chosePaper(String userText)
 	{
-		 String winLoseString= "";
-		 if(randomAttackString(winLoseString).equalsIgnoreCase("rock"))
-			{
-				System.out.println("Your nemesis chose rock, you are such a stud you winner!");
-				winCount ++;
-				System.out.println("There have been " + getWinCount() + " wins!");
-				System.out.println("There have been " + getTieCount() + " ties.");
-				System.out.println("There have been " + getLoseCount() + " losses. :(");
-			}
-			
-			else if(randomAttackString(winLoseString).equalsIgnoreCase("paper"))
-			{
-				System.out.println("Your nemesis chose paper, oooooo, how intense it's a tie!");
-				tieCount ++;
-				System.out.println("There have been " + getWinCount() + " wins!");
-				System.out.println("There have been " + getTieCount() + " ties.");
-				System.out.println("There have been " + getLoseCount() + " losses. :(");
-			}
-			else if(randomAttackString(winLoseString).equalsIgnoreCase("scissors"))
-			{
-				System.out.println("Your nemesis chose scissors, oh snap, you got dadgum beat!");
-				loseCount ++;
-				System.out.println("There have been " + getWinCount() + " wins!");
-				System.out.println("There have been " + getTieCount() + " ties.");
-				System.out.println("There have been " + getLoseCount() + " losses. :(");
-			}
-		
+		String winLoseString = "";
+		if (randomAttackString(winLoseString).equalsIgnoreCase("rock"))
+		{
+			JOptionPane.showMessageDialog(null, "Your nemesis chose rock, you are such a stud you winner!");
+			winCount++;
+			JOptionPane.showMessageDialog(null, "There have been " + getWinCount() + " wins!"
+					+ getTieCount() + " ties."
+					+ " and " + getLoseCount() + " losses. :(");
+			rockChoice();
+		}
+
+		else if (randomAttackString(winLoseString).equalsIgnoreCase("paper"))
+		{
+			JOptionPane.showMessageDialog(null, "Your nemesis chose paper, oooooo, how intense it's a tie!");
+			tieCount++;
+			JOptionPane.showMessageDialog(null, "There have been " + getWinCount() + " wins!" 
+					+ getTieCount() + " ties."
+					+ getLoseCount() + " losses. :(");
+			rockChoice();
+		}
+		else if (randomAttackString(winLoseString).equalsIgnoreCase("scissors"))
+		{
+			JOptionPane.showMessageDialog(null, "Your nemesis chose scissors, oh snap, you got dadgum beat!");
+			loseCount++;
+			JOptionPane.showMessageDialog(null, "There have been " + getWinCount() + " wins!"
+					+ getTieCount() + " ties."
+					+ " and " + getLoseCount() + " losses. :(");
+			rockChoice();
+		}
+
 		return winLoseString;
-		
+
 	}
-	
+
 	public String choseScissors(String userText)
 	{
-		 String winLoseString= "";
-		 if(randomAttackString(winLoseString).equalsIgnoreCase("rock"))
-			{
-				System.out.println("Your nemesis chose rock, hahahahahahaha!..... Loser.");
-				loseCount ++;
-				System.out.println("There have been " + getWinCount() + " wins!");
-				System.out.println("There have been " + getTieCount() + " ties.");
-				System.out.println("There have been " + getLoseCount() + " losses. :(");
-			}
-			
-			else if(randomAttackString(winLoseString).equalsIgnoreCase("paper"))
-			{
-				System.out.println("Your nemesis chose paper, noice! You won!!");
-				winCount ++;
-				System.out.println("There have been " + getWinCount() + " wins!");
-				System.out.println("There have been " + getTieCount() + " ties.");
-				System.out.println("There have been " + getLoseCount() + " losses. :(");
-			}
-			else if(randomAttackString(winLoseString).equalsIgnoreCase("scissors"))
-			{
-				System.out.println("Your nemesis chose scissors, it's a tie, man you almost lost there!");
-				tieCount ++;
-				System.out.println("There have been " + getWinCount() + " wins!");
-				System.out.println("There have been " + getTieCount() + " ties.");
-				System.out.println("There have been " + getLoseCount() + " losses. :(");
-			}
-		
+		String winLoseString = "";
+		if (randomAttackString(winLoseString).equalsIgnoreCase("rock"))
+		{
+			JOptionPane.showMessageDialog(null, "Your nemesis chose rock, hahahahahahaha!..... Loser.");
+			loseCount++;
+			JOptionPane.showMessageDialog(null, "There have been " + getWinCount() + " wins!"
+					+ getTieCount() + " ties."
+					+ " and " + getLoseCount() + " losses. :(");
+			rockChoice();
+		}
+
+		else if (randomAttackString(winLoseString).equalsIgnoreCase("paper"))
+		{
+			JOptionPane.showMessageDialog(null, "Your nemesis chose paper, noice! You won!!");
+			winCount++;
+			JOptionPane.showMessageDialog(null, "There have been " + getWinCount() + " wins!"
+					+ getTieCount() + " ties."
+					+ getLoseCount() + " losses. :(");
+			rockChoice();
+		}
+		else if (randomAttackString(winLoseString).equalsIgnoreCase("scissors"))
+		{
+			JOptionPane.showMessageDialog(null, "Your nemesis chose scissors, it's a tie, man you almost lost there!");
+			tieCount++;
+			JOptionPane.showMessageDialog(null, "There have been " + getWinCount() + " wins!"
+					+ getTieCount() + " ties."
+					+ " and " + getLoseCount() + " losses. :(");
+			rockChoice();
+		}
+
 		return winLoseString;
-		
+
 	}
 	
+	public boolean quit(String quitString)
+	{
+		String quitString1 = "quit";
+		boolean okToQuit = false;
+
+		if (quitString1 != null && quitString1.equals("quit")) {
+			okToQuit = true;
+		}
+
+		return okToQuit;
+	}
+
 	public String getRockString()
 	{
 		return rockString;

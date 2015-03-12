@@ -1,25 +1,37 @@
 package Rock.Controller;
 
+import javax.swing.JOptionPane;
+
 import Rock.Model.Rock;
 
 public class RockAppController
 {
 	private Rock letsRock;
+	
+	public RockAppController()
+	{
+		letsRock = new Rock();
+	}
 
 	public void start()
 	{
-		String beginString = "";
-		System.out.println("Let the rock Paper Scissors begin! Type rock, paper, or " 
-				+ "scissors to make your choice and then hit enter and try your luck!");
-		sendTextToRock(beginString);
+
+		JOptionPane.showMessageDialog(null, "Let the rock Paper Scissors begin!");
+		sendTextToRock(letsRock);
+
 	}
 
-	public String sendTextToRock(String userText)
+
+	public void sendTextToRock(Rock myRock)
 	{
-		String respondText = "";
+
+		letsRock.rockChoice();
+
 		
-		respondText = letsRock.rockString(respondText);
-		
-		return respondText;
+	}
+	
+	private void quit()
+	{
+		System.exit(0);
 	}
 }
